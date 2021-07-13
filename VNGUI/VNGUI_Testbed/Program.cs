@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Text;
 using Veldrid;
@@ -49,22 +50,34 @@ void main()
             {
                 X = 100,
                 Y = 100,
-                WindowWidth = 960,
-                WindowHeight = 540,
+                WindowWidth = 1024,
+                WindowHeight = 768,
                 WindowTitle = "Veldrid Tutorial"
             };
             Sdl2Window window = VeldridStartup.CreateWindow(ref windowCI);
 
-            _graphicsDevice = VeldridStartup.CreateGraphicsDevice(window);
+            _graphicsDevice = VeldridStartup.CreateGraphicsDevice(window, GraphicsBackend.Direct3D11);
 
             CreateResources();
 
             VN.Init("name", "key");
-            //VN.SetRenderDevice(new Noesis.RenderDeviceD3D11(context));
+
+            var renderDevice = new Noesis.RenderDeviceD3D11(_graphicsDevice.GetD3D11Info().Device);
+            VN.SetRenderDevice(renderDevice);
+
+            // TODO: 
+            DateTime time1 = DateTime.Now;
+            DateTime time2 = DateTime.Now;
 
             while (window.Exists)
             {
+                time2 = DateTime.Now;
+                double dt = (time2.Ticks - time1.Ticks) / 10000000f;
+                time1 = time2;
+
                 window.PumpEvents();
+
+                VN.Update(dt);
 
                 Draw();
             }
@@ -88,6 +101,8 @@ void main()
                 indexStart: 0,
                 vertexOffset: 0,
                 instanceStart: 0);
+
+            VN.Draw();
 
             _commandList.End();
             _graphicsDevice.SubmitCommands(_commandList);

@@ -24,6 +24,13 @@ namespace VNGUI
 
         }
 
+        public static void Dispose()
+        {
+            MainView.Renderer.Shutdown();
+            //MainView.Reset();
+            GUI.Shutdown();
+        }
+
         public static void SetRenderDevice(RenderDevice device)
         {
             if (MainView == null)
@@ -36,9 +43,22 @@ namespace VNGUI
             MainView.Renderer.Init(device);
         }
 
-        public static void Dispose()
+        public static void Update(double dt)
         {
-            GUI.Shutdown();
+            // TODO: check if everything was initialized?
+
+            MainView.Update(dt);
+        }
+
+        public static void Draw()
+        {
+            bool wasUpdated = MainView.Renderer.UpdateRenderTree();
+            if(wasUpdated)
+            {
+                MainView.Renderer.RenderOffscreen();
+
+                MainView.Renderer.Render();
+            }
         }
 
         private static void SetProviders()
