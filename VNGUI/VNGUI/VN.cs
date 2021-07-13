@@ -43,7 +43,7 @@ namespace VNGUI
             GUI.Shutdown();
         }
 
-        /*public static void SetRenderDevice(RenderDevice device)
+        public static void SetRenderDevice(RenderDevice device)
         {
             if (MainView == null)
             {
@@ -53,7 +53,7 @@ namespace VNGUI
             }
 
             MainView.Renderer.Init(device);
-        }*/
+        }
 
         public static void Update(double dt)
         {
