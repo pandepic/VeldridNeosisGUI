@@ -62,8 +62,15 @@ void main()
 
             VN.Init("name", "key");
 
-            var renderDevice = new Noesis.RenderDeviceD3D11(_graphicsDevice.GetD3D11Info().Device);
-            VN.SetRenderDevice(renderDevice);
+
+            //var ptr = _graphicsDevice.GetD3D11Info().Device;
+            //var renderDevice = NoesisApp.//new Noesis.RenderDeviceD3D11(_graphicsDevice.GetD3D11Info().Device);
+
+            //VN.SetRenderDevice(renderDevice);
+
+            var context = _graphicsDevice.GetD3D11Info().Device;
+
+            VN.MainView.Renderer.Init(new Noesis.RenderDeviceD3D11(context));
 
             // TODO: 
             DateTime time1 = DateTime.Now;
