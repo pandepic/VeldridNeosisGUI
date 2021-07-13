@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Text;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -62,7 +64,9 @@ void main()
 
             VN.Init("name", "key");
 
-            var renderDevice = new Noesis.RenderDeviceD3D11(_graphicsDevice.GetD3D11Info().Device);
+            var d3d11ContextPtr = VeldridUtil.GetD3D11ContextPtr(_graphicsDevice);
+
+            var renderDevice = new Noesis.RenderDeviceD3D11(d3d11ContextPtr);
             VN.SetRenderDevice(renderDevice);
 
             // TODO: 
