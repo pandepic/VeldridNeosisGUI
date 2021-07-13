@@ -59,6 +59,9 @@ void main()
 
             CreateResources();
 
+            VN.Init("name", "key");
+            //VN.SetRenderDevice(new Noesis.RenderDeviceD3D11(context));
+
             while (window.Exists)
             {
                 window.PumpEvents();

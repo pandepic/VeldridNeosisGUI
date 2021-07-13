@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Noesis.App" Version="3.0.12" />
     <PackageReference Include="Noesis.GUI" Version="3.0.12" />
     <PackageReference Include="Veldrid" Version="4.8.0" />
   </ItemGroup>
