@@ -7,11 +7,23 @@ namespace VNGUI
     public class VN
     {
         public static bool IsLoggingEnabled { set; get; } = true;
-        private static View MainView;
+        public static View MainView { get; private set; }
 
         public static void Init(string licenceName, string licenceKey)
         {
             Log("Initializing NoesisGUI");
+
+            Noesis.Log.SetLogCallback((level, channel, message) =>
+            {
+                if (channel == "")
+                {
+                    // [TRACE] [DEBUG] [INFO] [WARNING] [ERROR]
+                    string[] prefixes = new string[] { "T", "D", "I", "W", "E" };
+                    string prefix = (int)level < prefixes.Length ? prefixes[(int)level] : " ";
+                    Console.WriteLine("[NOESIS/" + prefix + "] " + message);
+                }
+            });
+
 
             GUI.Init(licenceName, licenceKey);
 
@@ -31,7 +43,7 @@ namespace VNGUI
             GUI.Shutdown();
         }
 
-        public static void SetRenderDevice(RenderDevice device)
+        /*public static void SetRenderDevice(RenderDevice device)
         {
             if (MainView == null)
             {
@@ -41,7 +53,7 @@ namespace VNGUI
             }
 
             MainView.Renderer.Init(device);
-        }
+        }*/
 
         public static void Update(double dt)
         {
@@ -67,7 +79,7 @@ namespace VNGUI
             //GUI.SetFontProvider();
             //GUI.SetTextureProvider();
 
-            Application.SetThemeProviders(new LocalXamlProvider(), new LocalFontProvider(), new LocalTextureProvider());
+            Application.SetThemeProviders();// (new LocalXamlProvider(), new LocalFontProvider(), new LocalTextureProvider());
         }
 
         private static void SetFonts()
