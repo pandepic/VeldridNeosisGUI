@@ -61,7 +61,7 @@ void main()
             
             CreateResources();
 
-            VNGUI.Init("name", "key");
+            VNGUI.Init("VNGUI", "wCN4TGRqeEySi5FbGvea/A4wukPwXdcbxj4KP9WOA7Z4aBCG");
 
             VNGUIView = VNGUIView.CreateInstance(GraphicsBackend.Direct3D11);
             VNGUIView.Init(_graphicsDevice, windowCI.WindowWidth, windowCI.WindowHeight, true);
