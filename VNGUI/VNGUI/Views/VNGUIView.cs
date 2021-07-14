@@ -135,6 +135,7 @@ namespace VeldridNGUI
                 return;
             }
 
+            #region Mouse Input
             var mouseX = (int)snapshot.MousePosition.X;
             var mouseY = (int)snapshot.MousePosition.Y;
             var prevMouseX = (int)_prevInputSnapshot.MousePosition.X;
@@ -144,50 +145,50 @@ namespace VeldridNGUI
             {
                 if (mouseEvent.Down)
                 {
-                    var button = GetNoesisMouseButton(mouseEvent.MouseButton);
+                    var button = VeldridMapping.GetNoesisMouseButton(mouseEvent.MouseButton);
 
                     if (button.HasValue)
                         View.MouseButtonDown(mouseX, mouseY, button.Value);
                 }
                 else
                 {
-                    var button = GetNoesisMouseButton(mouseEvent.MouseButton);
+                    var button = VeldridMapping.GetNoesisMouseButton(mouseEvent.MouseButton);
 
                     if (button.HasValue)
                         View.MouseButtonUp(mouseX, mouseY, button.Value);
                 }
             }
-
+            
             if (prevMouseX != mouseX || prevMouseY != mouseY)
                 View.MouseMove(mouseX, mouseY);
 
             if (snapshot.WheelDelta != 0)
                 View.MouseWheel(mouseX, mouseY, (int)snapshot.WheelDelta);
+            #endregion
+
+            #region Keyboard Input
+            foreach (var keyEvent in snapshot.KeyEvents)
+            {
+                Console.WriteLine($"{keyEvent.Down} {keyEvent.Key}");
+
+                if (keyEvent.Down)
+                {
+                    var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
+
+                    if (key.HasValue)
+                        View.KeyDown(key.Value);
+                }
+                else
+                {
+                    var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
+                    
+                    if (key.HasValue)
+                        View.KeyUp(key.Value);
+                }
+            }
+            #endregion
 
             _prevInputSnapshot = snapshot;
-        }
-
-        public Noesis.MouseButton? GetNoesisMouseButton(Veldrid.MouseButton button)
-        {
-            switch (button)
-            {
-                case Veldrid.MouseButton.Left:
-                    return MouseButton.Left;
-
-                case Veldrid.MouseButton.Right:
-                    return MouseButton.Right;
-
-                case Veldrid.MouseButton.Middle:
-                    return MouseButton.Middle;
-
-                case Veldrid.MouseButton.Button1:
-                    return MouseButton.XButton1;
-
-                case Veldrid.MouseButton.Button2:
-                    return MouseButton.XButton2;
-            }
-
-            return null;
         }
     }
 }
