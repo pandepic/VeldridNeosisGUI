@@ -89,7 +89,7 @@ namespace VeldridNGUI
                         <Viewbox>
                             <StackPanel Margin=""50"">
                                 <Button Content=""Hello World!"" Margin=""0,30,0,0""/>
-                                <Textbox />
+                                <Textbox Height=""150"" TextWrapping=""Wrap"" AcceptsReturn=""True"" VerticalScrollBarVisibility=""Visible"" />
                                 <Rectangle Height=""5"" Margin=""-10,20,-10,0"">
                                     <Rectangle.Fill>
                                         <RadialGradientBrush>
