@@ -29,21 +29,21 @@ namespace VeldridNGUI
         protected abstract void InternalInit();
         protected abstract void InternalRender();
 
-        public static VNGUIView CreateInstance(Veldrid.GraphicsBackend backendType)
+        public static VNGUIView CreateInstance(Veldrid.GraphicsDevice graphicsDevice)
         {
-            switch (backendType)
+            switch (graphicsDevice.BackendType)
             {
                 case Veldrid.GraphicsBackend.Direct3D11:
-                    return new VNGUIViewD3D11();
+                    return new VNGUIViewD3D11(graphicsDevice);
 
                 case Veldrid.GraphicsBackend.OpenGL:
-                    return new VNGUIViewOpenGL();
+                    return new VNGUIViewOpenGL(graphicsDevice);
             };
 
-            throw new Exception($"Unsupported backend type {backendType}");
+            throw new Exception($"Unsupported backend type {graphicsDevice.BackendType}");
         }
 
-        public void Init(Veldrid.GraphicsDevice graphicsDevice, int width, int height, bool loggingEnabled)
+        public void Init(int width, int height, bool loggingEnabled)
         {
             IsLoggingEnabled = loggingEnabled;
 
@@ -63,8 +63,6 @@ namespace VeldridNGUI
 
             CreateView();
             SetSize(width, height);
-
-            GraphicsDevice = graphicsDevice;
 
             InternalInit();
         }

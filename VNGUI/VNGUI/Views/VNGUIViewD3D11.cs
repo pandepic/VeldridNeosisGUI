@@ -29,8 +29,10 @@ namespace VeldridNGUI
             Dispose();
         }
 
-        internal VNGUIViewD3D11()
+        internal VNGUIViewD3D11(Veldrid.GraphicsDevice graphicsDevice)
         {
+            GraphicsDevice = graphicsDevice;
+
             _veldridAssembly = Assembly.Load(new AssemblyName("Veldrid"));
             _d3d11CommandListType = _veldridAssembly.GetType("Veldrid.D3D11.D3D11CommandList");
             _flushViewportsMethod = _d3d11CommandListType.GetMethod("FlushViewports", BindingFlags.NonPublic | BindingFlags.Instance);

@@ -16,6 +16,11 @@ namespace VeldridNGUI
             base.Dispose();
         }
 
+        public VNGUIViewOpenGL(Veldrid.GraphicsDevice graphicsDevice)
+        {
+            GraphicsDevice = graphicsDevice;
+        }
+
         protected override void InternalInit()
         {
             _renderDevice = new Noesis.RenderDeviceGL();

@@ -57,14 +57,14 @@ void main()
             };
             Sdl2Window window = VeldridStartup.CreateWindow(ref windowCI);
 
-            _graphicsDevice = VeldridStartup.CreateGraphicsDevice(window, GraphicsBackend.OpenGL);
+            _graphicsDevice = VeldridStartup.CreateGraphicsDevice(window, GraphicsBackend.Direct3D11);
             
             CreateResources();
 
             VNGUI.Init("VNGUI", "wCN4TGRqeEySi5FbGvea/A4wukPwXdcbxj4KP9WOA7Z4aBCG");
 
-            VNGUIView = VNGUIView.CreateInstance(GraphicsBackend.OpenGL);
-            VNGUIView.Init(_graphicsDevice, windowCI.WindowWidth, windowCI.WindowHeight, true);
+            VNGUIView = VNGUIView.CreateInstance(_graphicsDevice);
+            VNGUIView.Init(windowCI.WindowWidth, windowCI.WindowHeight, true);
 
             // TODO: 
             DateTime time1 = DateTime.Now;
