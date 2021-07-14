@@ -49,10 +49,10 @@ namespace VeldridNGUI
             CreateCommandList();
         }
 
-        protected override void InternalRender()
+        protected override void InternalRender(Veldrid.Framebuffer framebuffer)
         {
             _commandList.Begin();
-            _commandList.SetFramebuffer(GraphicsDevice.SwapchainFramebuffer);
+            _commandList.SetFramebuffer(framebuffer);
             _commandList.SetFullViewports();
             _flushViewportsMethod.Invoke(_commandList, null);
         }

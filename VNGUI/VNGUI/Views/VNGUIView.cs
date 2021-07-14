@@ -29,7 +29,7 @@ namespace VeldridNGUI
         #endregion
 
         protected abstract void InternalInit();
-        protected abstract void InternalRender();
+        protected abstract void InternalRender(Veldrid.Framebuffer framebuffer);
 
         public static VNGUIView CreateInstance(Veldrid.GraphicsDevice graphicsDevice)
         {
@@ -113,12 +113,15 @@ namespace VeldridNGUI
             View.SetSize(Width, Height);
         }
 
-        public void Draw()
+        public void Draw(Veldrid.Framebuffer framebuffer = null)
         {
+            if (framebuffer == null)
+                framebuffer = GraphicsDevice.SwapchainFramebuffer;
+
             View.Renderer.UpdateRenderTree();
             View.Renderer.RenderOffscreen();
 
-            InternalRender();
+            InternalRender(framebuffer);
 
             View.Renderer.Render();
         }

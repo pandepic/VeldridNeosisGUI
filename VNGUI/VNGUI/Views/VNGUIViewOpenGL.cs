@@ -27,7 +27,7 @@ namespace VeldridNGUI
             View.Renderer.Init(_renderDevice);
         }
 
-        protected override void InternalRender()
+        protected override void InternalRender(Veldrid.Framebuffer framebuffer)
         {
         }
     }
