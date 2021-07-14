@@ -76,8 +76,9 @@ void main()
                 double dt = (time2.Ticks - time1.Ticks) / 10000000f;
                 time1 = time2;
 
-                window.PumpEvents();
+                var inputSnapshot = window.PumpEvents();
 
+                VNGUIView.HandleInput(inputSnapshot);
                 VNGUIView.Update(dt);
 
                 Draw();

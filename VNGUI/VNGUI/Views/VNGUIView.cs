@@ -5,6 +5,8 @@ namespace VeldridNGUI
 {
     public abstract class VNGUIView : IDisposable
     {
+        private Veldrid.InputSnapshot _prevInputSnapshot;
+
         public View View { get; protected set; }
         public bool IsLoggingEnabled { get; set; }
 
@@ -123,6 +125,69 @@ namespace VeldridNGUI
         public void Update(double totalSeconds)
         {
             View.Update(totalSeconds);
+        }
+
+        public void HandleInput(Veldrid.InputSnapshot snapshot)
+        {
+            if (_prevInputSnapshot == null)
+            {
+                _prevInputSnapshot = snapshot;
+                return;
+            }
+
+            var mouseX = (int)snapshot.MousePosition.X;
+            var mouseY = (int)snapshot.MousePosition.Y;
+            var prevMouseX = (int)_prevInputSnapshot.MousePosition.X;
+            var prevMouseY = (int)_prevInputSnapshot.MousePosition.Y;
+
+            foreach (var mouseEvent in snapshot.MouseEvents)
+            {
+                if (mouseEvent.Down)
+                {
+                    var button = GetNoesisMouseButton(mouseEvent.MouseButton);
+
+                    if (button.HasValue)
+                        View.MouseButtonDown(mouseX, mouseY, button.Value);
+                }
+                else
+                {
+                    var button = GetNoesisMouseButton(mouseEvent.MouseButton);
+
+                    if (button.HasValue)
+                        View.MouseButtonUp(mouseX, mouseY, button.Value);
+                }
+            }
+
+            if (prevMouseX != mouseX || prevMouseY != mouseY)
+                View.MouseMove(mouseX, mouseY);
+
+            if (snapshot.WheelDelta != 0)
+                View.MouseWheel(mouseX, mouseY, (int)snapshot.WheelDelta);
+
+            _prevInputSnapshot = snapshot;
+        }
+
+        public Noesis.MouseButton? GetNoesisMouseButton(Veldrid.MouseButton button)
+        {
+            switch (button)
+            {
+                case Veldrid.MouseButton.Left:
+                    return MouseButton.Left;
+
+                case Veldrid.MouseButton.Right:
+                    return MouseButton.Right;
+
+                case Veldrid.MouseButton.Middle:
+                    return MouseButton.Middle;
+
+                case Veldrid.MouseButton.Button1:
+                    return MouseButton.XButton1;
+
+                case Veldrid.MouseButton.Button2:
+                    return MouseButton.XButton2;
+            }
+
+            return null;
         }
     }
 }

@@ -9,6 +9,8 @@
     <PackageReference Include="Noesis.App" Version="3.0.12" />
     <PackageReference Include="Noesis.GUI" Version="3.0.12" />
     <PackageReference Include="Veldrid" Version="4.9.0-gbe8e5a15f4" />
+    <PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0-gbe8e5a15f4" />
+    <PackageReference Include="Veldrid.Utilities" Version="4.9.0-g04d2d9fc8e" />
   </ItemGroup>
 
 </Project>
