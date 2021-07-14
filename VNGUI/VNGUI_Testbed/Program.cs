@@ -46,6 +46,8 @@ void main()
     fsout_Color = fsin_Color;
 }";
 
+        private static SharpDX.Direct3D11.DeviceContext _d3d11Context;
+
         static void Main()
         {
             WindowCreateInfo windowCI = new WindowCreateInfo()
@@ -59,14 +61,16 @@ void main()
             Sdl2Window window = VeldridStartup.CreateWindow(ref windowCI);
 
             _graphicsDevice = VeldridStartup.CreateGraphicsDevice(window, GraphicsBackend.Direct3D11);
-
+            
             CreateResources();
 
             VN.Init("name", "key");
 
+            _d3d11Context = VeldridUtil.GetD3D11DeviceContext(_graphicsDevice);
             var d3d11ContextPtr = VeldridUtil.GetD3D11ContextPtr(_graphicsDevice);
 
             var renderDevice = new Noesis.RenderDeviceD3D11(d3d11ContextPtr);
+
             VN.SetRenderDevice(renderDevice);
 
             // TODO: 
@@ -91,25 +95,38 @@ void main()
 
         private static void Draw()
         {
-            _commandList.Begin();
+            //_commandList.Begin();
 
-            _commandList.SetFramebuffer(_graphicsDevice.SwapchainFramebuffer);
-            _commandList.ClearColorTarget(0, RgbaFloat.Black);
+            //_commandList.SetFramebuffer(_graphicsDevice.SwapchainFramebuffer);
+            //_commandList.ClearColorTarget(0, RgbaFloat.Black);
 
-            _commandList.SetVertexBuffer(0, _vertexBuffer);
-            _commandList.SetIndexBuffer(_indexBuffer, IndexFormat.UInt16);
-            _commandList.SetPipeline(_pipeline);
-            _commandList.DrawIndexed(
-                indexCount: 4,
-                instanceCount: 1,
-                indexStart: 0,
-                vertexOffset: 0,
-                instanceStart: 0);
+            //_commandList.SetVertexBuffer(0, _vertexBuffer);
+            //_commandList.SetIndexBuffer(_indexBuffer, IndexFormat.UInt16);
+            //_commandList.SetPipeline(_pipeline);
+            //_commandList.DrawIndexed(
+            //    indexCount: 4,
+            //    instanceCount: 1,
+            //    indexStart: 0,
+            //    vertexOffset: 0,
+            //    instanceStart: 0);
+
+            //_commandList.End();
+            //_graphicsDevice.SubmitCommands(_commandList);
 
             VN.Draw();
 
+            VN.MainView.Renderer.UpdateRenderTree();
+            VN.MainView.Renderer.RenderOffscreen();
+
+            _commandList.Begin();
+            _commandList.SetFramebuffer(_graphicsDevice.SwapchainFramebuffer);
+            _commandList.ClearColorTarget(0, RgbaFloat.Black);
             _commandList.End();
             _graphicsDevice.SubmitCommands(_commandList);
+            _graphicsDevice.WaitForIdle();
+
+            VN.MainView.Renderer.Render();
+
             _graphicsDevice.SwapBuffers();
         }
 
