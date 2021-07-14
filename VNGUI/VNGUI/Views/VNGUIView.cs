@@ -79,8 +79,8 @@ namespace VeldridNGUI
             SetSize(width, height);
 
             InternalInit();
-
             InternalSetView();
+
             _stopwatch = Stopwatch.StartNew();
         }
 
