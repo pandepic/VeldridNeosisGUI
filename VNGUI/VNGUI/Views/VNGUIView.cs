@@ -170,8 +170,6 @@ namespace VeldridNGUI
             #region Keyboard Input
             foreach (var keyEvent in snapshot.KeyEvents)
             {
-                Console.WriteLine($"{keyEvent.Down} {keyEvent.Key}");
-
                 if (keyEvent.Down)
                 {
                     var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
