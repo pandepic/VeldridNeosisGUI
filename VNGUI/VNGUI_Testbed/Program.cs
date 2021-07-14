@@ -16,6 +16,7 @@ namespace VNGUI_Testbed
     {
         private static GraphicsDevice _graphicsDevice;
         private static CommandList _commandList;
+        private static CommandList _nguiCommandList;
         private static DeviceBuffer _vertexBuffer;
         private static DeviceBuffer _indexBuffer;
         private static Shader[] _shaders;
@@ -67,8 +68,8 @@ void main()
             VN.Init("name", "key");
 
             _d3d11Context = VeldridUtil.GetD3D11DeviceContext(_graphicsDevice);
-            var d3d11ContextPtr = VeldridUtil.GetD3D11ContextPtr(_graphicsDevice);
 
+            var d3d11ContextPtr = VeldridUtil.GetD3D11ContextPtr(_graphicsDevice);
             var renderDevice = new Noesis.RenderDeviceD3D11(d3d11ContextPtr);
 
             VN.SetRenderDevice(renderDevice);
@@ -113,17 +114,15 @@ void main()
             //_commandList.End();
             //_graphicsDevice.SubmitCommands(_commandList);
 
-            VN.Draw();
+            //VN.Draw();
 
             VN.MainView.Renderer.UpdateRenderTree();
             VN.MainView.Renderer.RenderOffscreen();
 
-            _commandList.Begin();
-            _commandList.SetFramebuffer(_graphicsDevice.SwapchainFramebuffer);
-            _commandList.ClearColorTarget(0, RgbaFloat.Black);
-            _commandList.End();
-            _graphicsDevice.SubmitCommands(_commandList);
-            _graphicsDevice.WaitForIdle();
+            _nguiCommandList.Begin();
+            _nguiCommandList.SetFramebuffer(_graphicsDevice.SwapchainFramebuffer);
+            _nguiCommandList.ClearColorTarget(0, RgbaFloat.Black);
+            //_graphicsDevice.SubmitCommands(_nguiCommandList);
 
             VN.MainView.Renderer.Render();
 
@@ -202,6 +201,8 @@ void main()
             _pipeline = factory.CreateGraphicsPipeline(pipelineDescription);
 
             _commandList = factory.CreateCommandList();
+
+            _nguiCommandList = VeldridUtil.CreateNGUICommandList(factory, VeldridUtil.GetD3D11DeviceContext(_graphicsDevice));
         }
     }
 
