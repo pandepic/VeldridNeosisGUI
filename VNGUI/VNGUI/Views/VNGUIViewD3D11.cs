@@ -16,6 +16,9 @@ namespace VeldridNGUI
 
         public override void Dispose()
         {
+            if (_disposed)
+                return;
+
             base.Dispose();
 
             _commandList?.Dispose();

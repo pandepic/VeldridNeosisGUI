@@ -14,7 +14,7 @@ namespace VeldridNGUI
         public Veldrid.GraphicsDevice GraphicsDevice { get; protected set; }
 
         #region IDisposable
-        private bool _disposed = false;
+        protected bool _disposed = false;
 
         public virtual void Dispose()
         {
