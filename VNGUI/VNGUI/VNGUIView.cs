@@ -63,8 +63,6 @@ namespace VeldridNGUI
             CreateView();
             SetSize(width, height);
 
-            Noesis.GUI.LoadApplicationResources("Theme/NoesisTheme.DarkBlue.xaml");
-
             GraphicsDevice = graphicsDevice;
 
             InternalInit();

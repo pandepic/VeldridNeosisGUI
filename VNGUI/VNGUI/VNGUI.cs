@@ -9,6 +9,7 @@ namespace VeldridNGUI
         {
             GUI.Init(licenseName, licenseKey);
             SetProviders();
+            Noesis.GUI.LoadApplicationResources("Theme/NoesisTheme.DarkBlue.xaml");
         }
 
         private static void SetProviders()
