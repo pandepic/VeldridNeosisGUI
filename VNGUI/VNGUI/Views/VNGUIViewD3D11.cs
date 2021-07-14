@@ -9,8 +9,8 @@ namespace VeldridNGUI
         private readonly Type _d3d11CommandListType;
         private readonly MethodInfo _flushViewportsMethod;
 
-        private SharpDX.Direct3D11.Device _d3d11Device;
-        private SharpDX.Direct3D11.DeviceContext _d3d11DeviceContext;
+        private Vortice.Direct3D11.ID3D11Device _d3d11Device;
+        private Vortice.Direct3D11.ID3D11DeviceContext _d3d11DeviceContext;
         private Noesis.RenderDeviceD3D11 _renderDevice;
         private Veldrid.CommandList _commandList;
 
@@ -40,7 +40,7 @@ namespace VeldridNGUI
 
         protected override void InternalInit()
         {
-            _d3d11Device = new SharpDX.Direct3D11.Device(GraphicsDevice.GetD3D11Info().Device);
+            _d3d11Device = new Vortice.Direct3D11.ID3D11Device(GraphicsDevice.GetD3D11Info().Device);
             _d3d11DeviceContext = _d3d11Device.ImmediateContext;
 
             _renderDevice = new Noesis.RenderDeviceD3D11(_d3d11DeviceContext.NativePointer);
@@ -65,7 +65,7 @@ namespace VeldridNGUI
             var d3d11GDContext1Field = _d3d11CommandListType.GetField("_context1", BindingFlags.NonPublic | BindingFlags.Instance);
 
             d3d11GDContextField.SetValue(_commandList, _d3d11DeviceContext.Device.ImmediateContext);
-            d3d11GDContext1Field.SetValue(_commandList, _d3d11DeviceContext.Device.ImmediateContext.QueryInterfaceOrNull<SharpDX.Direct3D11.DeviceContext1>());
+            d3d11GDContext1Field.SetValue(_commandList, _d3d11DeviceContext.Device.ImmediateContext.QueryInterfaceOrNull<Vortice.Direct3D11.ID3D11DeviceContext1>());
         }
     }
 }
