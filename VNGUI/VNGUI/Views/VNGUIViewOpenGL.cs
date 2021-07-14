@@ -30,5 +30,9 @@ namespace VeldridNGUI
         protected override void InternalRender(Veldrid.Framebuffer framebuffer)
         {
         }
+
+        protected override void InternalSetView()
+        {
+        }
     }
 }

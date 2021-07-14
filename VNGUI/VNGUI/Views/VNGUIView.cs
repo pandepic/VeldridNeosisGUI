@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Noesis;
 
 namespace VeldridNGUI
@@ -33,6 +34,7 @@ namespace VeldridNGUI
 
         protected abstract void InternalInit();
         protected abstract void InternalRender(Veldrid.Framebuffer framebuffer);
+        protected abstract void InternalSetView();
 
         public static VNGUIView CreateInstance(Veldrid.GraphicsDevice graphicsDevice)
         {
@@ -72,43 +74,40 @@ namespace VeldridNGUI
                 });
             }
 
-            CreateView();
+            View = Noesis.GUI.CreateView(null);
+            View.SetFlags(RenderFlags.PPAA | RenderFlags.LCD);
             SetSize(width, height);
 
             InternalInit();
 
+            InternalSetView();
             _stopwatch = Stopwatch.StartNew();
         }
 
-        private void CreateView()
+        public void CreateViewFromFile(string path)
         {
-            Noesis.Grid xaml = (Noesis.Grid)Noesis.GUI.ParseXaml(@"
-                    <Grid xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
-                        <Grid.Background>
-                            <LinearGradientBrush StartPoint=""0,0"" EndPoint=""0,1"">
-                                <GradientStop Offset=""0"" Color=""#FF123F61""/>
-                                <GradientStop Offset=""0.6"" Color=""#FF0E4B79""/>
-                                <GradientStop Offset=""0.7"" Color=""#FF106097""/>
-                            </LinearGradientBrush>
-                        </Grid.Background>
-                        <Viewbox>
-                            <StackPanel Margin=""50"">
-                                <Button Content=""Hello World!"" Margin=""0,30,0,0""/>
-                                <Textbox Height=""150"" TextWrapping=""Wrap"" AcceptsReturn=""True"" VerticalScrollBarVisibility=""Visible"" />
-                                <Rectangle Height=""5"" Margin=""-10,20,-10,0"">
-                                    <Rectangle.Fill>
-                                        <RadialGradientBrush>
-                                            <GradientStop Offset=""0"" Color=""#40000000""/>
-                                            <GradientStop Offset=""1"" Color=""#00000000""/>
-                                        </RadialGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </StackPanel>
-                        </Viewbox>
-                    </Grid>");
+            var xaml = File.ReadAllText(path);
+            CreateViewFromString(xaml);
+        }
 
-            View = Noesis.GUI.CreateView(xaml);
+        public void CreateViewFromStream(Stream stream)
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                var xaml = reader.ReadToEnd();
+                CreateViewFromString(xaml);
+            }
+        }
+
+        public void CreateViewFromString(string xaml)
+        {
+            var xamlElement = (FrameworkElement)Noesis.GUI.ParseXaml(xaml);
+
+            View = Noesis.GUI.CreateView(xamlElement);
             View.SetFlags(RenderFlags.PPAA | RenderFlags.LCD);
+
+            SetSize(Width, Height);
+            InternalSetView();
         }
 
         public void SetSize(int width, int height)

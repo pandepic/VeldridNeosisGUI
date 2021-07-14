@@ -19,4 +19,14 @@
     <ProjectReference Include="..\VNGUI\VNGUI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestUI\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestUI\Test.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

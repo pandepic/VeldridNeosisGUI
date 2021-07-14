@@ -44,9 +44,13 @@ namespace VeldridNGUI
             _d3d11DeviceContext = _d3d11Device.ImmediateContext;
 
             _renderDevice = new Noesis.RenderDeviceD3D11(_d3d11DeviceContext.NativePointer);
-            View.Renderer.Init(_renderDevice);
 
             CreateCommandList();
+        }
+
+        protected override void InternalSetView()
+        {
+            View.Renderer.Init(_renderDevice);
         }
 
         protected override void InternalRender(Veldrid.Framebuffer framebuffer)

@@ -65,6 +65,7 @@ void main()
 
             VNGUIView = VNGUIView.CreateInstance(_graphicsDevice);
             VNGUIView.Init(windowCI.WindowWidth, windowCI.WindowHeight, true);
+            VNGUIView.CreateViewFromFile("TestUI/Test.xaml");
 
             while (window.Exists)
             {
