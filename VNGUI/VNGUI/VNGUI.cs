@@ -9,7 +9,7 @@ namespace VeldridNGUI
         {
             GUI.Init(licenseName, licenseKey);
             SetProviders();
-            Noesis.GUI.LoadApplicationResources("Theme/NoesisTheme.DarkBlue.xaml");
+            GUI.LoadApplicationResources("Theme/NoesisTheme.DarkBlue.xaml");
         }
 
         private static void SetProviders()
@@ -17,7 +17,7 @@ namespace VeldridNGUI
             //GUI.SetXamlProvider();
             //GUI.SetFontProvider();
             //GUI.SetTextureProvider();
-
+            
             Application.SetThemeProviders();// (new LocalXamlProvider(), new LocalFontProvider(), new LocalTextureProvider());
         }
 

@@ -193,7 +193,7 @@ namespace VeldridNGUI
                 View.Char(c);
             }
             #endregion
-
+            
             _prevInputSnapshot = snapshot;
         }
     }
