@@ -6,6 +6,7 @@ namespace VeldridNGUI
     public abstract class VNGUIView : IDisposable
     {
         private Veldrid.InputSnapshot _prevInputSnapshot;
+        private System.Numerics.Vector2 _prevMousePosition;
 
         public View View { get; protected set; }
         public bool IsLoggingEnabled { get; set; }
@@ -142,8 +143,6 @@ namespace VeldridNGUI
             #region Mouse Input
             var mouseX = (int)snapshot.MousePosition.X;
             var mouseY = (int)snapshot.MousePosition.Y;
-            var prevMouseX = (int)_prevInputSnapshot.MousePosition.X;
-            var prevMouseY = (int)_prevInputSnapshot.MousePosition.Y;
 
             foreach (var mouseEvent in snapshot.MouseEvents)
             {
@@ -162,8 +161,8 @@ namespace VeldridNGUI
                         View.MouseButtonUp(mouseX, mouseY, button.Value);
                 }
             }
-            
-            if (prevMouseX != mouseX || prevMouseY != mouseY)
+
+            if (_prevMousePosition != snapshot.MousePosition)
                 View.MouseMove(mouseX, mouseY);
 
             if (snapshot.WheelDelta != 0)
@@ -196,6 +195,7 @@ namespace VeldridNGUI
             #endregion
             
             _prevInputSnapshot = snapshot;
+            _prevMousePosition = snapshot.MousePosition;
         }
     }
 }
