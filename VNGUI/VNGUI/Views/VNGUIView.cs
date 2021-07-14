@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Noesis;
 
 namespace VeldridNGUI
@@ -7,6 +8,7 @@ namespace VeldridNGUI
     {
         private Veldrid.InputSnapshot _prevInputSnapshot;
         private System.Numerics.Vector2 _prevMousePosition;
+        private Stopwatch _stopwatch;
 
         public View View { get; protected set; }
         public bool IsLoggingEnabled { get; set; }
@@ -74,6 +76,8 @@ namespace VeldridNGUI
             SetSize(width, height);
 
             InternalInit();
+
+            _stopwatch = Stopwatch.StartNew();
         }
 
         private void CreateView()
@@ -127,9 +131,9 @@ namespace VeldridNGUI
             View.Renderer.Render();
         }
 
-        public void Update(double totalSeconds)
+        public void Update()
         {
-            View.Update(totalSeconds);
+            View.Update(_stopwatch.Elapsed.TotalSeconds);
         }
 
         public void HandleInput(Veldrid.InputSnapshot snapshot)

@@ -66,20 +66,12 @@ void main()
             VNGUIView = VNGUIView.CreateInstance(_graphicsDevice);
             VNGUIView.Init(windowCI.WindowWidth, windowCI.WindowHeight, true);
 
-            // TODO: 
-            DateTime time1 = DateTime.Now;
-            DateTime time2 = DateTime.Now;
-
             while (window.Exists)
             {
-                time2 = DateTime.Now;
-                double dt = (time2.Ticks - time1.Ticks) / 10000000f;
-                time1 = time2;
-
                 var inputSnapshot = window.PumpEvents();
 
                 VNGUIView.HandleInput(inputSnapshot);
-                VNGUIView.Update(dt);
+                VNGUIView.Update();
 
                 Draw();
             }
