@@ -53,11 +53,17 @@ namespace VeldridNGUI
                 {
                     if (channel == "")
                     {
-                    // [TRACE] [DEBUG] [INFO] [WARNING] [ERROR]
-                    string[] prefixes = new string[] { "T", "D", "I", "W", "E" };
+                        // [TRACE] [DEBUG] [INFO] [WARNING] [ERROR]
+                        string[] prefixes = new string[] { "T", "D", "I", "W", "E" };
                         string prefix = (int)level < prefixes.Length ? prefixes[(int)level] : " ";
                         Console.WriteLine("[NOESIS/" + prefix + "] " + message);
                     }
+                });
+
+                Noesis.Error.SetUnhandledCallback((exception) =>
+                {
+                    // TODO : figure out what to do with this
+                    throw exception;
                 });
             }
 
