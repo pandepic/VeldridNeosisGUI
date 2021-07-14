@@ -35,6 +35,9 @@ namespace VeldridNGUI
             {
                 case Veldrid.GraphicsBackend.Direct3D11:
                     return new VNGUIViewD3D11();
+
+                case Veldrid.GraphicsBackend.OpenGL:
+                    return new VNGUIViewOpenGL();
             };
 
             throw new Exception($"Unsupported backend type {backendType}");
