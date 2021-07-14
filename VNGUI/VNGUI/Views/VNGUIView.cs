@@ -89,6 +89,7 @@ namespace VeldridNGUI
                         <Viewbox>
                             <StackPanel Margin=""50"">
                                 <Button Content=""Hello World!"" Margin=""0,30,0,0""/>
+                                <Textbox />
                                 <Rectangle Height=""5"" Margin=""-10,20,-10,0"">
                                     <Rectangle.Fill>
                                         <RadialGradientBrush>
@@ -185,6 +186,11 @@ namespace VeldridNGUI
                     if (key.HasValue)
                         View.KeyUp(key.Value);
                 }
+            }
+
+            foreach (var c in snapshot.KeyCharPresses)
+            {
+                View.Char(c);
             }
             #endregion
 
