@@ -70,6 +70,9 @@ namespace VeldridNGUI
                 Noesis.Error.SetUnhandledCallback((exception) =>
                 {
                     // TODO : figure out what to do with this
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine(exception.InnerException);
+                    Console.WriteLine(exception.StackTrace);
                     throw exception;
                 });
             }

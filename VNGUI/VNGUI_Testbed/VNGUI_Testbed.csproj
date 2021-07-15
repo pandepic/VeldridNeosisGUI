@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;NOESIS</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Veldrid" Version="4.9.0-gbe8e5a15f4" />
     <PackageReference Include="Veldrid.ImageSharp" Version="4.9.0-gbe8e5a15f4" />
@@ -20,10 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestUI\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="TestUI\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="TestUI\Test.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

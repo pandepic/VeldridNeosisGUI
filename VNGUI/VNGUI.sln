@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNGUI", "VNGUI\VNGUI.csproj", "{077D21E1-9855-490E-A406-A4423B9E1A37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VNGUI", "VNGUI\VNGUI.csproj", "{077D21E1-9855-490E-A406-A4423B9E1A37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNGUI_Testbed", "VNGUI_Testbed\VNGUI_Testbed.csproj", "{38D9E682-331F-4E4E-B5FB-847D793CB974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VNGUI_Testbed", "VNGUI_Testbed\VNGUI_Testbed.csproj", "{38D9E682-331F-4E4E-B5FB-847D793CB974}"
 	ProjectSection(ProjectDependencies) = postProject
 		{077D21E1-9855-490E-A406-A4423B9E1A37} = {077D21E1-9855-490E-A406-A4423B9E1A37}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNGUI_Blend", "VNGUI_Blend\VNGUI_Blend.csproj", "{7E5A58D7-8A93-4E55-A53F-1D97BF6F615A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{38D9E682-331F-4E4E-B5FB-847D793CB974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38D9E682-331F-4E4E-B5FB-847D793CB974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38D9E682-331F-4E4E-B5FB-847D793CB974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E5A58D7-8A93-4E55-A53F-1D97BF6F615A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E5A58D7-8A93-4E55-A53F-1D97BF6F615A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E5A58D7-8A93-4E55-A53F-1D97BF6F615A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E5A58D7-8A93-4E55-A53F-1D97BF6F615A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
