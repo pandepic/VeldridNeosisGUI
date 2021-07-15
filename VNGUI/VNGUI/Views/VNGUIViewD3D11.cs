@@ -63,6 +63,7 @@ namespace VeldridNGUI
 
         private void CreateCommandList()
         {
+            _commandList?.Dispose();
             _commandList = GraphicsDevice.ResourceFactory.CreateCommandList();
 
             var d3d11GDContextField = _d3d11CommandListType.GetField("_context", BindingFlags.NonPublic | BindingFlags.Instance);
