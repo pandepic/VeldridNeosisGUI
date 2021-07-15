@@ -117,6 +117,18 @@ namespace VeldridNGUI
             View.SetSize(Width, Height);
         }
 
+        public bool TryGetXAMLObject<T>(string name, out T obj)
+        {
+            obj = default;
+
+            var control = View.Content.FindName(name);
+            if (control == null)
+                return false;
+
+            obj = (T)control;
+            return true;
+        }
+
         public void Draw(Veldrid.Framebuffer framebuffer = null)
         {
             if (framebuffer == null)

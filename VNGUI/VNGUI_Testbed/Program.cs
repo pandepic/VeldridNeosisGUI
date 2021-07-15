@@ -68,11 +68,13 @@ void main()
             VNGUIView.Init(windowCI.WindowWidth, windowCI.WindowHeight, true);
             VNGUIView.CreateViewFromFile("TestUI/Test.xaml");
 
-            var btn = (Button)VNGUIView.View.Content.FindName("btn");
-            btn.Click += (sender, args) =>
+            if (VNGUIView.TryGetXAMLObject<Button>("btn", out var btn))
             {
-                Console.WriteLine("clicked");
-            };
+                btn.Click += (sender, args) =>
+                {
+                    Console.WriteLine("clicked");
+                };
+            }
 
             while (window.Exists)
             {
