@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Noesis;
+using System;
 using System.Numerics;
 using System.Text;
 using Veldrid;
@@ -66,6 +67,12 @@ void main()
             VNGUIView = VNGUIView.CreateInstance(_graphicsDevice);
             VNGUIView.Init(windowCI.WindowWidth, windowCI.WindowHeight, true);
             VNGUIView.CreateViewFromFile("TestUI/Test.xaml");
+
+            var btn = (Button)VNGUIView.View.Content.FindName("btn");
+            btn.Click += (sender, args) =>
+            {
+                Console.WriteLine("clicked");
+            };
 
             while (window.Exists)
             {
