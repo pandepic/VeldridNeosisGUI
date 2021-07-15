@@ -149,20 +149,15 @@ namespace VeldridNGUI
 
             foreach (var mouseEvent in snapshot.MouseEvents)
             {
+                var button = VeldridMapping.GetNoesisMouseButton(mouseEvent.MouseButton);
+
+                if (!button.HasValue)
+                    continue;
+
                 if (mouseEvent.Down)
-                {
-                    var button = VeldridMapping.GetNoesisMouseButton(mouseEvent.MouseButton);
-
-                    if (button.HasValue)
-                        View.MouseButtonDown(mouseX, mouseY, button.Value);
-                }
+                    View.MouseButtonDown(mouseX, mouseY, button.Value);
                 else
-                {
-                    var button = VeldridMapping.GetNoesisMouseButton(mouseEvent.MouseButton);
-
-                    if (button.HasValue)
-                        View.MouseButtonUp(mouseX, mouseY, button.Value);
-                }
+                    View.MouseButtonUp(mouseX, mouseY, button.Value);
             }
 
             if (_prevMousePosition != snapshot.MousePosition)
@@ -175,20 +170,15 @@ namespace VeldridNGUI
             #region Keyboard Input
             foreach (var keyEvent in snapshot.KeyEvents)
             {
-                if (keyEvent.Down)
-                {
-                    var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
+                var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
 
-                    if (key.HasValue)
-                        View.KeyDown(key.Value);
-                }
+                if (!key.HasValue)
+                    continue;
+
+                if (keyEvent.Down)
+                    View.KeyDown(key.Value);
                 else
-                {
-                    var key = VeldridMapping.GetNoesisKey(keyEvent.Key);
-                    
-                    if (key.HasValue)
-                        View.KeyUp(key.Value);
-                }
+                    View.KeyUp(key.Value);
             }
 
             foreach (var c in snapshot.KeyCharPresses)
